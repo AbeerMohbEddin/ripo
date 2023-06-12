@@ -1,0 +1,20 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Load the required libraries
+library(readxl)
+library(writexl)
+library(dplyr)
+
+# Load your data - replace 'your_file.xlsx' with the actual file path
+data <- read.csv('countfile.csv')
+
+# Filter out rows where all samples have an expression value of 0
+filtered_data <- data %>%
+    filter_if(is.numeric, any_vars(. != 0))
+
+
+# Save the filtered data back to a new Excel file
+write.csv(filtered_data, 'filtered_file.csv')
